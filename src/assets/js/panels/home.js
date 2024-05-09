@@ -103,6 +103,98 @@ class Home {
     async instancesSelect() {
         let configClient = await this.db.readData('configClient')
         let auth = await this.db.readData('accounts', configClient.account_selected)
+        let instancesList = await config.getInstanceList()
+        let instanceSelect = instancesList.find(i => i.name == configClient?.instance_selct) ? configClient?.instance_selct : null
+
+        let instanceBTN = document.querySelector('.play-instance')
+        let instancePopup = document.querySelector('.instance-popup')
+        let instancesListPopup = document.querySelector('.instances-List')
+        let instanceCloseBTN = document.querySelector('.close-popup')
+
+        if (instancesList.length === 1) {
+            document.querySelector('.instance-select').style.display = 'none'
+            instanceBTN.style.paddingRight = '0'
+        }
+
+        if (!instanceSelect) {
+            let newInstanceSelect = instancesList.find(i => i.whitelistActive == false)
+            let configClient = await this.db.readData('configClient')
+            configClient.instance_selct = newInstanceSelect.name
+            instanceSelect = newInstanceSelect.name
+            await this.db.updateData('configClient', configClient)
+        }
+
+        for (let instance of instancesList) {
+            if (instance.whitelistActive) {
+                let whitelist = instance.whitelist.find(whitelist => whitelist == auth?.name)
+                if (whitelist !== auth?.name) {
+                    if (instance.name == instanceSelect) {
+                        let newInstanceSelect = instancesList.find(i => i.whitelistActive == false)
+                        let configClient = await this.db.readData('configClient')
+                        configClient.instance_selct = newInstanceSelect.name
+                        instanceSelect = newInstanceSelect.name
+                        setStatus(newInstanceSelect.status)
+                        await this.db.updateData('configClient', configClient)
+                    }
+                }
+            } else console.log(`Initializing instance ${instance.name}...`)
+            if (instance.name == instanceSelect) setStatus(instance.status)
+        }
+
+        instancePopup.addEventListener('click', async e => {
+            let configClient = await this.db.readData('configClient')
+
+            if (e.target.classList.contains('instance-elements')) {
+                let newInstanceSelect = e.target.id
+                let activeInstanceSelect = document.querySelector('.active-instance')
+
+                if (activeInstanceSelect) activeInstanceSelect.classList.toggle('active-instance');
+                e.target.classList.add('active-instance');
+
+                configClient.instance_selct = newInstanceSelect
+                await this.db.updateData('configClient', configClient)
+                instanceSelect = instancesList.filter(i => i.name == newInstanceSelect)
+                instancePopup.style.display = 'none'
+                let instance = await config.getInstanceList()
+                let options = instance.find(i => i.name == configClient.instance_selct)
+                await setStatus(options.status)
+            }
+        })
+
+        instanceBTN.addEventListener('click', async e => {
+            let configClient = await this.db.readData('configClient')
+            let instanceSelect = configClient.instance_selct
+            let auth = await this.db.readData('accounts', configClient.account_selected)
+
+            if (e.target.classList.contains('instance-select')) {
+                instancesListPopup.innerHTML = ''
+                for (let instance of instancesList) {
+                    if (instance.whitelistActive) {
+                        instance.whitelist.map(whitelist => {
+                            if (whitelist == auth?.name) {
+                                if (instance.name == instanceSelect) {
+                                    instancesListPopup.innerHTML += `<div id="${instance.name}" class="instance-elements active-instance">${instance.name}</div>`
+                                } else {
+                                    instancesListPopup.innerHTML += `<div id="${instance.name}" class="instance-elements">${instance.name}</div>`
+                                }
+                            }
+                        })
+                    } else {
+                        if (instance.name == instanceSelect) {
+                            instancesListPopup.innerHTML += `<div id="${instance.name}" class="instance-elements active-instance">${instance.name}</div>`
+                        } else {
+                            instancesListPopup.innerHTML += `<div id="${instance.name}" class="instance-elements">${instance.name}</div>`
+                        }
+                    }
+                }
+
+                instancePopup.style.display = 'flex'
+            }
+
+            if (!e.target.classList.contains('instance-select')) this.startGame()
+        })
+
+        instanceCloseBTN.addEventListener('click', () => instancePopup.style.display = 'none')
     }
 
     async startGame() {
@@ -110,7 +202,10 @@ class Home {
         let configClient = await this.db.readData('configClient')
         let instance = await config.getInstanceList()
         let authenticator = await this.db.readData('accounts', configClient.account_selected)
+        let options = instance.find(i => i.name == configClient.instance_selct)
 
+        let playInstanceBTN = document.querySelector('.play-instance')
+        let infoStartingBOX = document.querySelector('.info-starting-game')
         let infoStarting = document.querySelector(".info-starting-game-text")
         let progressBar = document.querySelector('.progress-bar')
 
@@ -150,6 +245,7 @@ class Home {
 
         launch.Launch(opt);
 
+        playInstanceBTN.style.display = "none"
         infoStartingBOX.style.display = "block"
         progressBar.style.display = "";
         ipcRenderer.send('main-window-progress-load')
