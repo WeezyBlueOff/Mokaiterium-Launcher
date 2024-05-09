@@ -1,6 +1,6 @@
-<p align="center"><img src="../src/assets/images/icon.png" alt="icon-launcher"></p>
+<p align="center"><img src="http://mokaiterium.legameeer.fr/storage/img/favicon.png" width="200" alt="icon-launcher"></p>
 
-<h1 align="center">CraftLaunch</h1>
+<h1 align="center">Mokaiterium Launcher</h1>
 
 [<p align="center">]()
 ![GitHub all releases](https://img.shields.io/github/downloads/luuxis/Selvania-Launcher/total?style=for-the-badge)
@@ -11,8 +11,8 @@
 ![GitHub Repo stars](https://img.shields.io/github/stars/luuxis/Selvania-Launcher?style=for-the-badge)
 
 <p align="center">
-    <a href="http://discord.luuxis.fr">
-        <img src="https://invidget.switchblade.xyz/e9q7Yr2cuQ">
+    <a href="https://discord.gg/gme6sUKnGc">
+        <img src="https://media.discordapp.net/attachments/1238091231750393878/1238130076265218170/image_1.png?ex=663e29fd&is=663cd87d&hm=b89be3e25cae9a65be32591abaa2196088ab4f01ec63ea96f4311b7135393a0c&=&format=webp&quality=lossless&width=356&height=90">
     </a>
 </p>
 
@@ -70,11 +70,11 @@ Plateformes supportées :
 
 Si vous téléchargez à partir des Releases, sélectionnez le programme d'installation de votre système.
 
- Plateforme | Fichier |
-| -------- | ---- |
-| Windows x64 | `Selvania-Launcher-win-x64.exe ` |
-| macOS x64 | `Selvania-Launcher-mac-x64.dmg` |
-| macOS arm64 | `Selvania-Launcher-mac-arm64.dmg` |
-| Linux x64 | `Selvania-Launcher-linux-x86_64.AppImage` |
+ Plateforme | Fichier                                   |
+| -------- |-------------------------------------------|
+| Windows x64 | `Mokaiterium-Launcher-win-x64.exe `       |
+| macOS x64 | `Mokaiterium-Launcher-mac-x64.dmg`           |
+| macOS arm64 | `Mokaiterium-Launcher-mac-arm64.dmg`         |
+| Linux x64 | `Mokaiterium-Launcher-linux-x86_64.AppImage` |
 
 ---
