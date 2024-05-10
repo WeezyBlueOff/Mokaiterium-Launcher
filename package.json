@@ -7,7 +7,7 @@
     "author": {
         "name": "WeezyBlue, nxyo, Luuxis",
         "email": "matthidou34@gmail.com",
-        "url": "https://github.com/WeezyBlueOFF"
+        "url": "http://mokaiterium.legameeer.fr/"
     },
     "url": "http://launcher.mokaiterium.legameeer.fr/mokaiterium-launcher/",
     "scripts": {
@@ -23,7 +23,7 @@
     },
     "dependencies": {
         "electron-updater": "^6.1.8",
-        "minecraft-java-core": "^3.10.1",
+        "minecraft-java-core": "^3.10.2",
         "node-bdd": "^2.0.3",
         "node-fetch": "^2.7.0",
         "xml-js": "^1.6.11"
@@ -33,7 +33,7 @@
         "electron": "^30.0.2",
         "electron-builder": "^24.13.3",
         "javascript-obfuscator": "^4.1.0",
-        "jimp": "^0.22.12",
+        "jimp": "^0.3.11",
         "nodemon": "^3.1.0",
         "png2icons": "^2.0.1"
     },
